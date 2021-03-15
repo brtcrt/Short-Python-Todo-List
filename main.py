@@ -4,7 +4,6 @@ import json  # Standard json library. Using this for data storage. Unstable but 
 from tkinter import ttk  # For quick access to parts like the Button.
 from tkcalendar import Calendar  # Used for the date picking.
 from datetime import date  # Used for setting starting date.
-
 with open('tasks.json') as json_file:
     try:
         tasks_loaded = json.load(json_file)  # Getting the saved info from the json file.
@@ -12,7 +11,6 @@ with open('tasks.json') as json_file:
         print("Some random key error from start up or the json file was changed.")  # Problems with using .json as a db.
 task = {
     "tasks": [
-
     ]
 }  # Using a dictionary to store data whilst the program is running. This also makes converting to json easy.
 try:
@@ -30,7 +28,9 @@ def PickDate():  # To pick a date for the task.
         if addedTask == "":  # Solves a problem where the program would die if the user enters an empty string. Idk who'd do that, but yeah. Just in case.
             messagebox.showinfo("Something bad happened :(", "Please enter your task first!")  # Also to keep everything in order. (Task first, date second)
         else:
-            task["tasks"].append(str(addedTask) + " --- Task Date: " + str(cal.selection_get()))  # Combines the task & date into a single string so it is easier to display.
+            print(task)
+            this_date = cal.selection_get()
+            task["tasks"].append(str(addedTask) + " --- Task Date: " + str(this_date))  # Combines the task & date into a single string so it is easier to display.
             messagebox.showinfo("Success!", "Set the date for the task! Don't forget to submit the task to your list!")  # Just to give some feedback to the user.
     top = tk.Toplevel(root)
     cal = Calendar(top,font="Arial 14", selectmode='day',cursor="hand1", year=date.today().year, month=date.today().month, day=date.today().day)  # The date-picker system.
